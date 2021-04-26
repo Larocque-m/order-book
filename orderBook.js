@@ -2,15 +2,12 @@ function reconcileOrder(existingBook, incomingOrder) {
   let updatedBook = []
   let newOrders = []
 
-  // want to add to new arrays and check if book is empty 
   if (existingBook.length === 0) {
     const updatedBook = existingBook.concat(incomingOrder)
 
     return updatedBook
   }
-  // loop through the existingBook objects
   for (let i = 0; i < existingBook.length; i++) {
-    // make varibles from the objects 
     const bookType = existingBook[i].type
     const bookPrice = existingBook[i].price
     const orderType = incomingOrder.type
@@ -21,10 +18,29 @@ function reconcileOrder(existingBook, incomingOrder) {
     if (bookType !== orderType &&
       bookPrice === orderPrice &&
       bookQuantity === orderQuantity) {
-      // if these match then price will be true
       incomingOrder.price = true
+    } else if (bookType !== orderType &&
+      bookPrice === orderPrice &&
+
+      bookQuantity !== orderQuantity) {
+      if (bookQuantity > orderQuantity) {
+        existingBook[i].quantity -= orderQuantity
+
+        incomingOrder.quantity = false
+        newOrders.push(existingBook[i])
+      } else {
+        incomingOrder.quantity -= bookQuantity
+      }
+    } else {
+      updatedBook.push(existingBook[i])
     }
   }
+  if (incomingOrder.quantity !== false &&
+    incomingOrder.price !== true) {
+    updatedBook.push(incomingOrder)
+  }
+
+  return updatedBook.concat(newOrders)
 }
 
 module.exports = reconcileOrder

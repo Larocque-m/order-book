@@ -17,6 +17,13 @@ function reconcileOrder(existingBook, incomingOrder) {
     let bookQuantity = existingBook[i].quantity
     let orderPrice = incomingOrder.price
     let orderQuantity = incomingOrder.quantity
+
+    if (bookType !== orderType &&
+      bookPrice === orderPrice &&
+      bookQuantity === orderQuantity) {
+      // if these match then price will be true
+      incomingOrder.price = true
+    }
   }
 }
 

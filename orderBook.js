@@ -8,6 +8,16 @@ function reconcileOrder(existingBook, incomingOrder) {
 
     return updatedBook
   }
+  // loop through the existingBook objects
+  for (let i = 0; i < existingBook.length; i++) {
+    // make varibles from the objects 
+    const bookType = existingBook[i].type
+    const bookPrice = existingBook[i].price
+    const orderType = incomingOrder.type
+    let bookQuantity = existingBook[i].quantity
+    let orderPrice = incomingOrder.price
+    let orderQuantity = incomingOrder.quantity
+  }
 }
 
 module.exports = reconcileOrder
